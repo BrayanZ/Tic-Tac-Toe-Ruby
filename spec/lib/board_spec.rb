@@ -15,6 +15,7 @@ describe Board do
   CELLS = [A_CELL, A_CELL, ANOTHER_CELL, A_CELL, A_CELL, A_CELL, A_CELL, A_CELL, A_CELL]
 
   describe 'play at position' do
+    let(:a_cell) {stub :cell, marked?: false}
 
     context 'on an empty board' do
       it 'has 9 empty cells' do
@@ -24,8 +25,8 @@ describe Board do
 
       it 'plays with a mark on a given position' do
         board = EmptyBoard.new
-        board.stub(:cell_at_position).and_return(A_CELL)
-        A_CELL.should_receive(:mark_with).with(A_MARK)
+        board.stub(:cell_at_position).and_return(a_cell)
+        a_cell.should_receive(:mark_with).with(A_MARK)
 
         board.make_move(mark: A_MARK, cell:A_CELL_POSITION)
       end

@@ -13,7 +13,8 @@ class EmptyBoard
   end
 
   def make_move(mark: '' , cell:'' )
-    cell_at_position(cell).mark_with(mark)
+    cell = cell_at_position(cell)
+    cell.mark_with(mark) unless cell.marked?
   end
 end
 
