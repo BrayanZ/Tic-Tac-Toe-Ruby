@@ -13,40 +13,24 @@ describe Board do
 
   describe 'play at position' do
     let(:a_cell) {stub :cell, marked?: false}
+    let(:a_marked_cell) { stub :cell, marked?: true }
+    let(:board) { Board.new }
 
-    context 'on an empty board' do
-      let(:board) { Board.new }
-
-      it 'has 9 empty cells' do
-        expect(board.cells).to have_only EmptyCell
-      end
-
-      it 'plays with a mark on a given position' do
-        board.stub(:cell_at_position).and_return(a_cell)
-        a_cell.should_receive(:mark_with).with(A_MARK)
-
-        board.make_move(mark: A_MARK, cell:A_CELL_POSITION)
-      end
+    it 'has 9 empty cells' do
+      expect(board.cells).to have_only EmptyCell
     end
 
-    context 'on an initialized board' do
-      let(:a_cell) { stub :cell, marked?: false }
-      let(:a_marked_cell) { stub :cell, marked?: true }
+    it 'plays with a mark on a given position' do
+      board.stub(:cell_at_position).and_return(a_cell)
+      a_cell.should_receive(:mark_with).with(A_MARK)
 
-      it 'tries to play in a position already played' do
-        board = Board.new
-        board.stub(:cell_at_position).with(A_CELL_POSITION).and_return(a_marked_cell)
-        expect(board.make_move(mark: A_MARK, cell: A_CELL_POSITION)).to be_nil
-      end
+      board.make_move(mark: A_MARK, cell:A_CELL_POSITION)
+    end
 
-      it 'plays with a mark on a given position' do
-        board = Board.new
-
-        board.stub(:cell_at_position).with(A_CELL_POSITION).and_return(a_cell)
-        a_cell.should_receive(:mark_with).with(A_MARK)
-        board.make_move(mark: A_MARK, cell:A_CELL_POSITION)
-      end
-
+    it 'tries to play in a position already played' do
+      board = Board.new
+      board.stub(:cell_at_position).with(A_CELL_POSITION).and_return(a_marked_cell)
+      expect(board.make_move(mark: A_MARK, cell: A_CELL_POSITION)).to be_nil
     end
   end
 
