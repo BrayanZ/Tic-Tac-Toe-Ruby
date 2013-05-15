@@ -38,8 +38,14 @@ describe Board do
         expect(board.cell_at_position(A_CELL_POSITION)).to be ANOTHER_CELL
       end
 
-      it 'tries to play in a position already played'
+      it 'tries to play in a position already played' do
+        board = EmptyBoard.new
+        cell = board.cell_at_position(A_CELL_POSITION)
+        cell.stub(:marked?).and_return(true)
+        expect(board.make_move(mark: A_MARK, cell: A_CELL_POSITION)).to be_nil
+      end
       it 'plays with a mark on a given position'
+
     end
 
   end
