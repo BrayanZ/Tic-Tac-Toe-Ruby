@@ -10,9 +10,6 @@ end
 describe Board do
   A_MARK = "X"
   A_CELL_POSITION = 2
-  A_CELL = "I'm a cell"
-  ANOTHER_CELL = "I'm another cell"
-  CELLS = [A_CELL, A_CELL, ANOTHER_CELL, A_CELL, A_CELL, A_CELL, A_CELL, A_CELL, A_CELL]
 
   describe 'play at position' do
     let(:a_cell) {stub :cell, marked?: false}
@@ -33,12 +30,6 @@ describe Board do
     end
 
     context 'on an initialized board' do
-      it 'gets the cell for the given position' do
-        board = EmptyBoard.new
-        board.stub(:cells).and_return(CELLS)
-        expect(board.cell_at_position(A_CELL_POSITION)).to be ANOTHER_CELL
-      end
-
       it 'tries to play in a position already played' do
         board = EmptyBoard.new
         cell = board.cell_at_position(A_CELL_POSITION)
@@ -48,6 +39,17 @@ describe Board do
       it 'plays with a mark on a given position'
 
     end
+  end
 
+  describe 'get the cell at position' do
+    A_CELL = "I'm a cell"
+    ANOTHER_CELL = "I'm another cell"
+    CELLS = [A_CELL, A_CELL, ANOTHER_CELL, A_CELL, A_CELL, A_CELL, A_CELL, A_CELL, A_CELL]
+
+    it 'gets the cell for the given position' do
+      board = EmptyBoard.new
+      board.stub(:cells).and_return(CELLS)
+      expect(board.cell_at_position(A_CELL_POSITION)).to be ANOTHER_CELL
+    end
   end
 end
