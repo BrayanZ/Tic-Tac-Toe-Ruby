@@ -1,6 +1,5 @@
-class Board; end
-
-class EmptyBoard
+require 'cell'
+class Board
   def initialize
     @cells = [EmptyCell.new] * 9
   end
@@ -17,6 +16,3 @@ class EmptyBoard
     cell.mark_with(mark) unless cell.marked?
   end
 end
-
-class EmptyCell; end
-

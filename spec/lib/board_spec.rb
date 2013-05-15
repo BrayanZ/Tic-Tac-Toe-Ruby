@@ -15,7 +15,7 @@ describe Board do
     let(:a_cell) {stub :cell, marked?: false}
 
     context 'on an empty board' do
-      let(:board) { EmptyBoard.new }
+      let(:board) { Board.new }
 
       it 'has 9 empty cells' do
         expect(board.cells).to have_only EmptyCell
@@ -34,13 +34,13 @@ describe Board do
       let(:a_marked_cell) { stub :cell, marked?: true }
 
       it 'tries to play in a position already played' do
-        board = EmptyBoard.new
+        board = Board.new
         board.stub(:cell_at_position).with(A_CELL_POSITION).and_return(a_marked_cell)
         expect(board.make_move(mark: A_MARK, cell: A_CELL_POSITION)).to be_nil
       end
 
       it 'plays with a mark on a given position' do
-        board = EmptyBoard.new
+        board = Board.new
 
         board.stub(:cell_at_position).with(A_CELL_POSITION).and_return(a_cell)
         a_cell.should_receive(:mark_with).with(A_MARK)
@@ -56,7 +56,7 @@ describe Board do
     CELLS = [A_CELL, A_CELL, ANOTHER_CELL, A_CELL, A_CELL, A_CELL, A_CELL, A_CELL, A_CELL]
 
     it 'gets the cell for the given position' do
-      board = EmptyBoard.new
+      board = Board.new
       board.stub(:cells).and_return(CELLS)
       expect(board.cell_at_position(A_CELL_POSITION)).to be ANOTHER_CELL
     end

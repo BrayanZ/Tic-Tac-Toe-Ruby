@@ -7,3 +7,6 @@ class Cell
     @mark
   end
 end
+
+class EmptyCell; end
+
