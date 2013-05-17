@@ -7,4 +7,9 @@ describe Game do
       expect( game.board ).to be_instance_of Board
     end
   end
+
+  describe 'next_turn' do
+    it 'change the player turn when the first one make a move'
+    it 'dont change the player turn when the first one makes an invalid move'
+  end
 end
