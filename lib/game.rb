@@ -1,6 +1,6 @@
 class Game
   def initialize
-    @board = EmptyBoard.new
+    @board = Board.new
   end
 
   def board
@@ -8,6 +8,3 @@ class Game
   end
 
 end
-
-class EmptyBoard; end
-
