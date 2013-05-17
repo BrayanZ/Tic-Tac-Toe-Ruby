@@ -12,8 +12,8 @@ describe Board do
   A_CELL_POSITION = 2
 
   describe 'play at position' do
-    let(:a_cell) {stub :cell, marked?: false}
-    let(:a_marked_cell) { stub :cell, marked?: true }
+    let(:a_cell) {stub :cell }
+    let(:a_marked_cell) { stub :cell, mark_with: nil }
     let(:board) { Board.new }
 
     it 'has 9 empty cells' do
@@ -24,13 +24,12 @@ describe Board do
       board.stub(:cell_at_position).and_return(a_cell)
       a_cell.should_receive(:mark_with).with(A_MARK)
 
-      board.make_move(mark: A_MARK, cell:A_CELL_POSITION)
+      board.make_move(A_MARK, A_CELL_POSITION)
     end
 
     it 'tries to play in a position already played' do
-      board = Board.new
       board.stub(:cell_at_position).with(A_CELL_POSITION).and_return(a_marked_cell)
-      expect(board.make_move(mark: A_MARK, cell: A_CELL_POSITION)).to be_nil
+      expect(board.make_move(A_MARK, A_CELL_POSITION)).to be_nil
     end
   end
 

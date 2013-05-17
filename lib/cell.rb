@@ -8,10 +8,6 @@ class Cell
   def mark
     @mark
   end
-
-  def marked?
-    raise NotImplementedError
-  end
 end
 
 class EmptyCell < Cell
@@ -23,4 +19,3 @@ class EmptyCell < Cell
     Cell.new(mark)
   end
 end
-

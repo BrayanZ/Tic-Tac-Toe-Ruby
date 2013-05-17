@@ -7,12 +7,14 @@ class Board
   def cells
     @cells
   end
+
   def cell_at_position position
     cells[position]
   end
 
-  def make_move(mark: '' , cell:'' )
-    cell = cell_at_position(cell)
-    cell.mark_with(mark) unless cell.marked?
+  def make_move(mark, position)
+    cell = cell_at_position(position).mark_with(mark)
+    @cells[position] = cell unless cell
+    cell
   end
 end
