@@ -10,11 +10,11 @@ end
 describe Board do
   A_MARK = "X"
   A_CELL_POSITION = 2
+  let(:board) { Board.new }
 
   describe 'play at position' do
     let(:a_cell) {stub :cell }
     let(:a_marked_cell) { stub :cell, mark_with: nil }
-    let(:board) { Board.new }
 
     it 'has 9 empty cells' do
       expect(board.cells).to have_only EmptyCell
@@ -39,9 +39,18 @@ describe Board do
     CELLS = [A_CELL, A_CELL, ANOTHER_CELL, A_CELL, A_CELL, A_CELL, A_CELL, A_CELL, A_CELL]
 
     it 'gets the cell for the given position' do
-      board = Board.new
       board.stub(:cells).and_return(CELLS)
       expect(board.cell_at_position(A_CELL_POSITION)).to be ANOTHER_CELL
+    end
+  end
+
+  describe 'Game Over' do
+    let(:cell) { stub :cell, marked?: true}
+    let(:game_over) { [cell] * 9 }
+
+    it 'verifies if the game is over when all the cells are marked' do
+      board.stub(:cells).and_return(game_over)
+      expect(board).to be_over
     end
   end
 end
