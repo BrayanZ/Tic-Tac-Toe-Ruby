@@ -14,7 +14,7 @@ class Board
 
   def make_move(mark, position)
     cell = cell_at_position(position).mark_with(mark)
-    @cells[position] = cell unless cell
+    @cells[position] = cell unless cell.nil?
     cell
   end
 end

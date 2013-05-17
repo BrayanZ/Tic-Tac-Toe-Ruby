@@ -18,26 +18,26 @@ describe Game do
 
   describe 'changes next player turn when moves' do
     it 'starts with the first plater' do
-      expect(game.next_player.mark).to be A_MARK
+      expect(game.current_player.mark).to be A_MARK
     end
 
     it 'change the player turn when the first one make a move' do
       game.move A_POSITION
-      expect(game.next_player.mark).to be ANOTHER_MARK
+      expect(game.current_player.mark).to be ANOTHER_MARK
     end
 
     it 'dont change the player turn when the first one makes an invalid move' do
       game.move A_POSITION
       game.move A_POSITION
 
-      expect(game.next_player.mark).to be ANOTHER_MARK
+      expect(game.current_player.mark).to be ANOTHER_MARK
     end
 
     it 'rotates correctly the next player' do
       game.move A_POSITION
       game.move ANOTHER_POSITION
 
-      expect(game.next_player.mark).to be A_MARK
+      expect(game.current_player.mark).to be A_MARK
     end
   end
 end
