@@ -8,6 +8,10 @@ class Cell
   def mark
     @mark
   end
+
+  def marked? 
+    !@mark.nil?
+  end
 end
 
 class EmptyCell < Cell

@@ -17,4 +17,9 @@ class Board
     @cells[position] = cell unless cell.nil?
     cell
   end
+
+  def over?
+    marks = cells.map { |cell| cell.marked? }
+    !marks.include? false
+  end
 end
