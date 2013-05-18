@@ -18,6 +18,7 @@ class Game
   end
 
   private
+
   def current_player_mark
     @players[@current_player_index].mark
   end

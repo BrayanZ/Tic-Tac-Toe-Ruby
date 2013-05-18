@@ -44,13 +44,13 @@ describe Board do
     end
   end
 
-  describe 'Game Over' do
+  describe 'Game completed' do
     let(:cell) { stub :cell, marked?: true}
     let(:game_over) { [cell] * 9 }
 
-    it 'verifies if the game is over when all the cells are marked' do
+    it 'verifies if the game is completed, when all the cells are marked' do
       board.stub(:cells).and_return(game_over)
-      expect(board).to be_over
+      expect(board).to be_completed
     end
   end
 end

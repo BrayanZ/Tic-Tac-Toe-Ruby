@@ -18,7 +18,7 @@ class Board
     cell
   end
 
-  def over?
+  def completed?
     marks = cells.map { |cell| cell.marked? }
     !marks.include? false
   end
