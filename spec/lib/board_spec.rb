@@ -9,6 +9,7 @@ end
 
 describe Board do
   A_MARK = "X"
+  ANOTHER_MARK = "O"
   A_CELL_POSITION = 2
   let(:board) { Board.new }
 
@@ -51,6 +52,36 @@ describe Board do
     it 'verifies if the game is completed, when all the cells are marked' do
       board.stub(:cells).and_return(game_over)
       expect(board).to be_completed
+    end
+  end
+
+  describe 'return the winner of the board' do
+    let(:cell_marked_1) { stub :cell, mark: A_MARK}
+    let(:cell_marked_2) { stub :cell, mark: ANOTHER_MARK}
+    let(:winner_horizontal_1) { [cell_marked_1, cell_marked_1, cell_marked_1,
+                                 cell_marked_2, cell_marked_1, cell_marked_2,
+                                 cell_marked_2, cell_marked_2, cell_marked_2] }
+    let(:winner_vertical_1) { [cell_marked_1, cell_marked_1, cell_marked_1,
+                               cell_marked_2, cell_marked_1, cell_marked_2,
+                               cell_marked_2, cell_marked_1, cell_marked_2] }
+
+    let(:winner_diagonal_1) { [cell_marked_2, cell_marked_1, cell_marked_1,
+                               cell_marked_1, cell_marked_2, cell_marked_2,
+                               cell_marked_2, cell_marked_1, cell_marked_2] }
+
+    it 'finds the winner of the board in horizontal' do
+      board.stub(:cells).and_return(winner_horizontal_1)
+      expect(board.winner).to be A_MARK
+    end
+
+    it 'finds the winner of the board in vertical' do
+      board.stub(:cells).and_return(winner_vertical_1)
+      expect(board.winner).to be A_MARK
+    end
+
+    it 'finds the winner of the board in diagonal' do
+      board.stub(:cells).and_return(winner_diagonal_1)
+      expect(board.winner).to be ANOTHER_MARK
     end
   end
 end
