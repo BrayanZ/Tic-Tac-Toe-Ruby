@@ -58,6 +58,7 @@ describe Board do
   describe 'return the winner of the board' do
     let(:cell_marked_1) { stub :cell, mark: A_MARK}
     let(:cell_marked_2) { stub :cell, mark: ANOTHER_MARK}
+    let(:no_marked_cell) { stub :cell, mark: nil }
     let(:winner_horizontal_1) { [cell_marked_1, cell_marked_1, cell_marked_1,
                                  cell_marked_2, cell_marked_1, cell_marked_2,
                                  cell_marked_2, cell_marked_2, cell_marked_2] }
@@ -68,6 +69,14 @@ describe Board do
     let(:winner_diagonal_1) { [cell_marked_2, cell_marked_1, cell_marked_1,
                                cell_marked_1, cell_marked_2, cell_marked_2,
                                cell_marked_2, cell_marked_1, cell_marked_2] }
+
+    let(:no_winner) { [cell_marked_2, cell_marked_1, no_marked_cell,
+                      cell_marked_1, no_marked_cell, cell_marked_2,
+                      cell_marked_2, cell_marked_1, cell_marked_2] }
+
+    let(:winner_with_empty_row) { [no_marked_cell, no_marked_cell, no_marked_cell,
+                                   cell_marked_1, cell_marked_1, cell_marked_1,
+                                   cell_marked_2, cell_marked_1, cell_marked_2] }
 
     it 'finds the winner of the board in horizontal' do
       board.stub(:cells).and_return(winner_horizontal_1)
@@ -83,5 +92,16 @@ describe Board do
       board.stub(:cells).and_return(winner_diagonal_1)
       expect(board.winner).to be ANOTHER_MARK
     end
+
+    it "returns nil when there's no winner" do
+      board.stub(:cells).and_return(no_winner)
+      expect(board.winner).to be_nil
+    end
+
+    it "finds the winner and don't recognies empty row as a winner" do
+      board.stub(:cells).and_return(winner_with_empty_row)
+      expect(board.winner).to be A_MARK
+    end
+
   end
 end
