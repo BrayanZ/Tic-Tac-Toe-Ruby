@@ -24,6 +24,10 @@ class Board
     !marks.include? false
   end
 
+  def has_a_winner?
+    !winner.nil?
+  end
+
   def winner
     winner_mark == WINNER_MOVES ? nil : winner_mark
   end
