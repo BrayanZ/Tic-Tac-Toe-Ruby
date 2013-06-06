@@ -25,13 +25,16 @@ class Board
   end
 
   def winner
-    WINNER_MOVES.each do |move|
-      marks = marks_at(*move).uniq
-      return marks[0] if marks.count == 1
-    end
+    winner_mark == WINNER_MOVES ? nil : winner_mark
   end
 
   private
+  def winner_mark
+    WINNER_MOVES.each do |move|
+      marks = marks_at(*move).uniq
+      return marks[0] if marks.count == 1 && !marks[0].nil?
+    end
+  end
 
   def marks_at *positions
     cells_at_positions = cells.values_at(*positions)
