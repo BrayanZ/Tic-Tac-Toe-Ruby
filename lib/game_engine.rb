@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'json'
 
 class GameEngine < Sinatra::Base
   enable :sessions
@@ -13,5 +14,6 @@ class GameEngine < Sinatra::Base
   post '/play_cell' do
     game = session[:game]
     game.move params['cell'].to_i
+    game.board.to_json
   end
 end

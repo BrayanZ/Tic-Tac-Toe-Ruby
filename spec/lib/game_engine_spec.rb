@@ -37,8 +37,10 @@ describe 'game engine' do
     end
 
     it 'returns a json with the new board' do
+      game = double(:game).as_null_object
       board = stub :board
-      game = double(:game, move: nil, board: board)
+      game.stub(:board).and_return(board)
+
       post('/play_cell', { cell: A_CELL_NUMBER }, 'rack.session' => { 'game' => game})
       expect(last_response.body).to eq board.to_json
     end
