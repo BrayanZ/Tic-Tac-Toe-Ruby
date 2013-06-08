@@ -7,11 +7,23 @@ describe 'game engine' do
   def app
     GameEngine.new
   end
+  
+  def session
+    last_request.env['rack.session']
+  end
 
   describe 'start a new game' do
     it 'creates a new game' do
       get('/')
       expect(last_response.body).to match /<h1.*>Tic-Tac-Toe<\/h1>.*(<a.*data-role='cell'.*>.*){9}/m
+    end
+
+    it 'saves a new game in session' do
+      game = double :game
+      Game.stub(:new).and_return(game)
+
+      get('/')
+      expect(session[:game]).to eq game
     end
   end
 
