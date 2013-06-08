@@ -5,8 +5,13 @@ class GameEngine < Sinatra::Base
   set :views, Proc.new { Dir.pwd + '/views' }
 
   get '/' do
-    @game = Game.new 'X', 'O'
+    @game = Game.new({mark: 'X'}, {mark: 'O'})
     session[:game] = @game
     erb :index
+  end
+
+  post '/play_cell' do
+    game = session[:game]
+    game.move params['cell'].to_i
   end
 end
