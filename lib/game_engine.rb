@@ -4,9 +4,11 @@ require 'json'
 class GameEngine < Sinatra::Base
   enable :sessions
   set :views, Proc.new { Dir.pwd + '/views' }
+  set :public_folder, Dir.pwd + "/assets/"
 
   get '/' do
-    @game = Game.new({mark: 'X'}, {mark: 'O'})
+    Player = Struct.new(:mark)
+    @game = Game.new(Player.new('X'), Player.new('O'))
     session[:game] = @game
     erb :index
   end

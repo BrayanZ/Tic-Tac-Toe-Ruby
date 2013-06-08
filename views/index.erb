@@ -1,14 +1,31 @@
+<!DOCTYPE HTML>
 <html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <title>Tic Tac Toe</title>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="/js/game.js"></script>
+  <link rel="stylesheet" href="/css/game.css" />
+
+  </head>
   <body>
     <h1>Tic-Tac-Toe</h1>
-    <a href="#" data-role='cell'>#</a>
-    <a href="#" data-role='cell'>#</a>
-    <a href="#" data-role='cell'>#</a>
-    <a href="#" data-role='cell'>#</a>
-    <a href="#" data-role='cell'>#</a>
-    <a href="#" data-role='cell'>#</a>
-    <a href="#" data-role='cell'>#</a>
-    <a href="#" data-role='cell'>#</a>
-    <a href="#" data-role='cell'>#</a>
+    <% (0..8).each_slice(3) do |row| %>
+      <% row.each do |position| %>
+        <a href="#" class='cell' data-role='cell' data-position=<%= position %>>&nbsp;</a>
+      <% end %>
+      <br />
+    <% end %>
+
+    <script type="text/javascript" charset="utf-8">
+      (function($, game){
+        $(function(){
+          new game({
+            cells: $('[data-role=cell]')
+          }).bind();
+        });
+      }(jQuery, TicTacToe.Game.New));
+    </script>
   </body>
 </html>
