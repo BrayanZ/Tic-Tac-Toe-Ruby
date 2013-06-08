@@ -4,6 +4,8 @@ require 'game_engine'
 describe 'game engine' do
   include Rack::Test::Methods
 
+  A_CELL_NUMBER = '5'
+
   def app
     GameEngine.new
   end
@@ -23,11 +25,15 @@ describe 'game engine' do
       Game.stub(:new).and_return(game)
 
       get('/')
-      expect(session[:game]).to eq game
+      expect(session['game']).to eq game
     end
   end
 
   describe 'apply a move' do
-    it 'makes a move on the current board'
+    it 'makes a move on the current board' do
+      game = double :game
+      game.should_receive(:move).with(A_CELL_NUMBER.to_i)
+      post('/play_cell', { cell: A_CELL_NUMBER }, 'rack.session' => {'game' => game})
+    end
   end
 end
