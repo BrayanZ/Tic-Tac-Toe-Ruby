@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+Dir[Dir.pwd + "/lib/*.rb"].each {|lib_file| require lib_file}
+
+GameEngine.run!
