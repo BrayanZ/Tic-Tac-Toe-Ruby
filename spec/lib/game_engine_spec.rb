@@ -33,7 +33,14 @@ describe 'game engine' do
     it 'makes a move on the current board' do
       game = double :game
       game.should_receive(:move).with(A_CELL_NUMBER.to_i)
-      post('/play_cell', { cell: A_CELL_NUMBER }, 'rack.session' => {'game' => game})
+      post('/play_cell', { cell: A_CELL_NUMBER }, 'rack.session' => { 'game' => game })
+    end
+
+    it 'returns a json with the new board' do
+      board = stub :board
+      game = double(:game, move: nil, board: board)
+      post('/play_cell', { cell: A_CELL_NUMBER }, 'rack.session' => { 'game' => game})
+      expect(last_response.body).to eq board.to_json
     end
   end
 end
