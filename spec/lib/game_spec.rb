@@ -61,15 +61,5 @@ describe Game do
         expect(game).to be_over
       end
     end
-
-    it "checks if there's a winner" do
-      board.stub(:has_a_winner?).and_return(true)
-      expect(game).to have_a_winner
-    end
-
-    it 'knows who won the game' do
-      board.stub(:winner).and_return(A_MARK)
-      expect(game.winner).to be A_MARK
-    end
   end
 end

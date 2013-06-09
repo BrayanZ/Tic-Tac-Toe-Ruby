@@ -19,12 +19,6 @@ class Game
     board.completed? || board.has_a_winner?
   end
 
-  def has_a_winner?
-    board.has_a_winner?
-  end
-
-  def winner
-    board.winner
   end
 
   private
