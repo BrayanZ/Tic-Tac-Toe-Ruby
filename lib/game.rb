@@ -15,6 +15,18 @@ class Game
     @players[@current_player_index]
   end
 
+  def over?
+    board.completed? || board.has_a_winner?
+  end
+
+  def has_a_winner?
+    board.has_a_winner?
+  end
+
+  def winner
+    board.winner
+  end
+
   private
 
   def current_player_mark

@@ -30,7 +30,7 @@ class Board
   def winner
     winner_mark == WINNER_MOVES ? nil : winner_mark
   end
-  
+
   def to_json
     cells.map(&:mark).to_json
   end
