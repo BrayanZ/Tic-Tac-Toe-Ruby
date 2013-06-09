@@ -4,7 +4,8 @@ TicTacToe.Game = TicTacToe.Game || {};
 (function($, Game){
 
   New = function(options){
-    this.cells = options.cells;
+    this.cells        = options.cells;
+    this.messageField = options.messageField;
   }
 
   Game.New = New;
@@ -31,10 +32,29 @@ TicTacToe.Game = TicTacToe.Game || {};
       type: 'POST',
       url: '/play_cell',
       data: { cell: cellPosition },
-      success: function(newBoard){
-        game.redrawBoard(newBoard);
+      success: function(gameStatus){
+        game.redrawBoard(gameStatus.board);
+        game.printStatus(gameStatus.is_game_over, gameStatus.winner);
       }
     });
+  }
+
+  New.prototype.printStatus = function(is_game_over, winner){
+    if(is_game_over){
+      this.messageGameOver(winner);
+      this.disableCells();
+    }
+  }
+
+  New.prototype.disableCells = function(){
+    this.cells.removeAttr('href');
+    this.cells.unbind('click');
+  }
+
+  New.prototype.messageGameOver = function(winner){
+    if(winner != null)
+      return this.messageField.text('Winner player ' + winner);
+    this.messageField.text('Game Over');
   }
 
   New.prototype.redrawBoard = function(board){

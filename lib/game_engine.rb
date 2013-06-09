@@ -14,8 +14,15 @@ class GameEngine < Sinatra::Base
   end
 
   post '/play_cell' do
-    game = session[:game]
-    game.move params['cell'].to_i
-    game.board.to_json
+    result = play_on_position(session[:game], params['cell'].to_i)
+    result.to_json
+  end
+
+  private
+
+  def play_on_position(game, position)
+    game.move(position)
+    { board: game.board, is_game_over: game.over?,  winner: game.board.winner }
+
   end
 end

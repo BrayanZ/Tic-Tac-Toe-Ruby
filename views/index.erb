@@ -11,6 +11,7 @@
   </head>
   <body>
     <h1>Tic-Tac-Toe</h1>
+    <h3 data-role='messages'></h3>
     <% (0..8).each_slice(3) do |row| %>
       <% row.each do |position| %>
         <a href="#" class='cell' data-role='cell' data-position=<%= position %>>&nbsp;</a>
@@ -22,7 +23,8 @@
       (function($, game){
         $(function(){
           new game({
-            cells: $('[data-role=cell]')
+            cells: $('[data-role=cell]'),
+            messageField: $('[data-role=messages]')
           }).bind();
         });
       }(jQuery, TicTacToe.Game.New));

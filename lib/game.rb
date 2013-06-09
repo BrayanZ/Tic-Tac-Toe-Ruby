@@ -19,8 +19,6 @@ class Game
     board.completed? || board.has_a_winner?
   end
 
-  end
-
   private
 
   def current_player_mark
