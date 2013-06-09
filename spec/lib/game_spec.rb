@@ -40,4 +40,36 @@ describe Game do
       expect(game.current_player.mark).to be A_MARK
     end
   end
+
+  describe 'end of the game' do
+    let(:board){ double :board }
+
+    before :each do
+      board
+      game.stub(:board).and_return(board)
+    end
+
+    context 'game over' do
+      it "checks if it's the end of the game" do
+        board.stub(:completed?).and_return(true)
+        expect(game).to be_over
+      end
+
+      it "checks if there's a winner" do
+        board.stub(:completed?).and_return(false)
+        board.stub(:has_a_winner?).and_return(true)
+        expect(game).to be_over
+      end
+    end
+
+    it "checks if there's a winner" do
+      board.stub(:has_a_winner?).and_return(true)
+      expect(game).to have_a_winner
+    end
+
+    it 'knows who won the game' do
+      board.stub(:winner).and_return(A_MARK)
+      expect(game.winner).to be A_MARK
+    end
+  end
 end
