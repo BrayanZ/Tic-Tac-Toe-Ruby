@@ -5,6 +5,7 @@ describe 'game engine' do
   include Rack::Test::Methods
 
   A_CELL_NUMBER = '5'
+  IS_GAME_OVER = true
 
   def app
     GameEngine.new
@@ -37,12 +38,12 @@ describe 'game engine' do
     end
 
     it 'returns a json with the new board' do
-      game = double(:game).as_null_object
-      board = stub :board
+      game = double(:game, over?: IS_GAME_OVER).as_null_object
+      board = stub :board, winner: nil
       game.stub(:board).and_return(board)
 
       post('/play_cell', { cell: A_CELL_NUMBER }, 'rack.session' => { 'game' => game})
-      expect(last_response.body).to eq board.to_json
+      expect(last_response.body).to eq({ board: board, is_game_over: IS_GAME_OVER, winner: nil }.to_json)
     end
   end
 end
